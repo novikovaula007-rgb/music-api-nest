@@ -18,10 +18,11 @@ export const musicStorage = diskStorage({
         }
 
         const destDir = join(process.cwd(), 'public', 'uploads', folder);
-
         if (!fs.existsSync(destDir)) {
             fs.mkdirSync(destDir, {recursive: true});
         }
+
+        cb(null, destDir);
     },
 
     filename: (req, file, cb) => {

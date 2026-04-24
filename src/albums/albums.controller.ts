@@ -33,6 +33,8 @@ export class AlbumsController {
             title: createAlbumDto.title,
             description: createAlbumDto.description,
             image: file ? file.filename : null,
+            release_year: createAlbumDto.release_year,
+            artist: createAlbumDto.artist,
         })
 
         return album.save();
