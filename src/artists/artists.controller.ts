@@ -32,7 +32,6 @@ export class ArtistsController {
         @UploadedFile() file: Express.Multer.File,
         @Body() artistData: CreateArtistDto,
     ) {
-        console.log(file)
         const artist = new this.artistModel({
             name: artistData.name,
             description: artistData.description,
