@@ -16,6 +16,7 @@ import { FileInterceptor } from '@nestjs/platform-express';
 import { CreateArtistDto } from './create-artist.dto';
 import { musicStorage } from '../utils/file-upload.utils';
 import { TokenAuthGuard } from '../token-auth/token-auth.guard';
+import { RoleGuard } from '../role/role.guard';
 
 @Controller('artists')
 export class ArtistsController {
@@ -51,7 +52,7 @@ export class ArtistsController {
   }
 
   @Delete(':id')
-  @UseGuards(TokenAuthGuard)
+  @UseGuards(TokenAuthGuard, RoleGuard)
   async deleteOne(@Param('id') id: string) {
     return this.artistModel.findByIdAndDelete(id);
   }

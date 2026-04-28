@@ -13,6 +13,7 @@ import { Track } from '../schemas/track.schema';
 import { Model } from 'mongoose';
 import { CreateTrackDto } from './create-track.dto';
 import { TokenAuthGuard } from '../token-auth/token-auth.guard';
+import { RoleGuard } from '../role/role.guard';
 
 @Controller('tracks')
 export class TracksController {
@@ -37,7 +38,7 @@ export class TracksController {
   }
 
   @Delete()
-  @UseGuards(TokenAuthGuard)
+  @UseGuards(TokenAuthGuard, RoleGuard)
   async deleteOne(@Param('id') id: string) {
     return this.trackModel.findByIdAndDelete(id);
   }
