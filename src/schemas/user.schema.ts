@@ -3,7 +3,12 @@ import { Document } from 'mongoose';
 import bcrypt from 'bcrypt';
 import { randomUUID } from 'crypto';
 
-export type UserDocument = User & Document;
+export interface UserMethods {
+  generateToken(): void;
+  checkPassword(password: string): Promise<boolean>;
+}
+
+export type UserDocument = User & Document & UserMethods;
 
 @Schema()
 export class User {
@@ -38,7 +43,7 @@ UserSchema.methods.checkPassword = function (
   return bcrypt.compare(password, this.password);
 };
 
-UserSchema.pre<UserDocument>('save', async function () {
+UserSchema.pre<UserDocument>('save', async function (this: UserDocument) {
   if (!this.isModified('password')) return;
 
   const salt = await bcrypt.genSalt(10);
