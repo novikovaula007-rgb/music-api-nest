@@ -1,5 +1,5 @@
 export class CreateTrackDto {
-    title: string;
-    album: string;
-    duration: string;
+  title: string;
+  album: string;
+  duration: string;
 }
